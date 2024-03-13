@@ -1,3 +1,3 @@
 output "mongodb" {
-   value = module.mongodb.id
+  value = module.mongodb.id
 }
