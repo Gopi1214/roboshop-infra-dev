@@ -4,7 +4,7 @@ variable "cidr_block" {
 }
 
 variable "commn_tags" {
-  type = map
+  type = map(any)
   default = {
     project     = "roboshop"
     environment = "dev"

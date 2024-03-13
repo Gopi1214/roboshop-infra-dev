@@ -1,6 +1,6 @@
 module "vpn" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_vpc.default.id
@@ -12,7 +12,7 @@ module "vpn" {
 
 module "mongodb" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -23,7 +23,7 @@ module "mongodb" {
 
 module "redis" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -33,7 +33,7 @@ module "redis" {
 
 module "rabbitmq" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -43,7 +43,7 @@ module "rabbitmq" {
 
 module "mysql" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -53,7 +53,7 @@ module "mysql" {
 
 module "catalogue" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -63,7 +63,7 @@ module "catalogue" {
 
 module "cart" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -73,7 +73,7 @@ module "cart" {
 
 module "user" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -83,7 +83,7 @@ module "user" {
 
 module "payment" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -93,7 +93,7 @@ module "payment" {
 
 module "shipping" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -103,7 +103,7 @@ module "shipping" {
 
 module "web" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
@@ -113,7 +113,7 @@ module "web" {
 
 module "app_alb" {
   #source         = "../../terraform-aws-security-group"
-  source         = "https://github.com/Gopi1214/terraform-aws-security-group.git"
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
   project_name   = var.project_name
   environment    = var.environment
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
