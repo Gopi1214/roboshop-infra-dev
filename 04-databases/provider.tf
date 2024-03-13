@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket         = "gmd-terraform-dev"
-    key            = "vpc-dev"
+    key            = "databases"
     region         = "us-east-1"
     dynamodb_table = "gmd-terraform-lock-dev"
   }
