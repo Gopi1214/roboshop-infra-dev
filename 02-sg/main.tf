@@ -121,6 +121,15 @@ module "app_alb" {
   sg_name        = "app_alb"
 }
 
+module "web_alb" {
+  source         = "git::https://github.com/Gopi1214/terraform-aws-security-group.git"
+  project_name   = var.project_name
+  environment    = var.environment
+  vpc_id         = data.aws_ssm_parameter.vpc_id.value
+  sg_description = "SG for web_alb"
+  sg_name        = "web_alb"
+}
+
 # VPN accepting connections from home request passes through that port and receives response on the same port
 resource "aws_security_group_rule" "vpn_home" {
   type              = "ingress"
@@ -129,6 +138,33 @@ resource "aws_security_group_rule" "vpn_home" {
   protocol          = "-1"
   security_group_id = module.vpn.sg_id
   cidr_blocks       = ["0.0.0.0/0"] #ideally your home public ip address, it changes frequently
+}
+
+resource "aws_security_group_rule" "app_alb_vpn" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = module.app_alb.sg_id
+  source_security_group_id = module.vpn.sg_id
+}
+
+resource "aws_security_group_rule" "app_alb_web" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = module.app_alb.sg_id
+  source_security_group_id = module.web.sg_id
+}
+
+resource "aws_security_group_rule" "web_alb_internet" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = module.web_alb.sg_id
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "mongodb_vpn" {
@@ -225,6 +261,15 @@ resource "aws_security_group_rule" "catalogue_vpn" {
   type                     = "ingress"
   from_port                = 22
   to_port                  = 22
+  protocol                 = "tcp"
+  security_group_id        = module.catalogue.sg_id
+  source_security_group_id = module.vpn.sg_id
+}
+
+resource "aws_security_group_rule" "catalogue_vpn_http" {
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
   protocol                 = "tcp"
   security_group_id        = module.catalogue.sg_id
   source_security_group_id = module.vpn.sg_id
