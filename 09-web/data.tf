@@ -31,5 +31,5 @@ data "aws_ssm_parameter" "private_subnet_ids" {
 }
 
 data "aws_ssm_parameter" "web_lb_listener_arn" {
-  name  = "/gmd/${var.project_name}/${var.environment}/web_lb_listener_arn"
+  name = "/gmd/${var.project_name}/${var.environment}/web_lb_listener_arn"
 }

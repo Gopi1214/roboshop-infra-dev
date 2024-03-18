@@ -1,7 +1,7 @@
 #creating Cloudfront distribution :
 resource "aws_cloudfront_distribution" "pjdevops" {
-  enabled             = true
-  aliases             = ["web-${var.environment}.${var.zone_name}"]
+  enabled = true
+  aliases = ["web-${var.environment}.${var.zone_name}"]
   origin {
     domain_name = "web-${var.environment}.${var.zone_name}"
     origin_id   = "web-${var.environment}.${var.zone_name}"
@@ -31,9 +31,9 @@ resource "aws_cloudfront_distribution" "pjdevops" {
       locations        = ["IN", "US", "CA"]
     }
   }
-  tags = merge (
-         var.commn_tags,
-         var.tags
+  tags = merge(
+    var.commn_tags,
+    var.tags
   )
   viewer_certificate {
     acm_certificate_arn      = data.aws_ssm_parameter.acm_certificate_arn.value
@@ -43,7 +43,7 @@ resource "aws_cloudfront_distribution" "pjdevops" {
 }
 
 # creating A record for domain:
-  module "records" {
+module "records" {
   source = "terraform-aws-modules/route53/aws//modules/records"
 
   zone_name = var.zone_name
