@@ -12,18 +12,36 @@ resource "aws_cloudfront_distribution" "pjdevops" {
       origin_ssl_protocols   = ["TLSv1.2"]
     }
   }
+
+    # Cache behavior with precedence 0
+  ordered_cache_behavior {
+    path_pattern     = "/images/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = "web-${var.environment}.${var.zone_name}"
+
+    cache_policy_id = data.aws_cloudfront_cache_policy.cache.id
+    compress               = true
+    viewer_protocol_policy = "https-only"
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/static/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = "web-${var.environment}.${var.zone_name}"
+
+    cache_policy_id = data.aws_cloudfront_cache_policy.cache.id
+    compress               = true
+    viewer_protocol_policy = "https-only"
+  }
+
   default_cache_behavior {
-    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    allowed_methods        = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods         = ["GET", "HEAD", "OPTIONS"]
     target_origin_id       = "web-${var.environment}.${var.zone_name}"
     viewer_protocol_policy = "https-only"
-    forwarded_values {
-      headers      = []
-      query_string = true
-      cookies {
-        forward = "all"
-      }
-    }
+    cache_policy_id = data.aws_cloudfront_cache_policy.no_cache.id
   }
   restrictions {
     geo_restriction {
@@ -38,7 +56,7 @@ resource "aws_cloudfront_distribution" "pjdevops" {
   viewer_certificate {
     acm_certificate_arn      = data.aws_ssm_parameter.acm_certificate_arn.value
     ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2018"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
 

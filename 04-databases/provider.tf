@@ -5,12 +5,12 @@ terraform {
       version = "5.38.0"
     }
   }
-  backend "s3" {
-    bucket         = "gmd-terraform-dev"
-    key            = "databases"
-    region         = "us-east-1"
-    dynamodb_table = "gmd-terraform-lock-dev"
-  }
+  # backend "s3" {
+  #   bucket         = "gmd-terraform-dev"
+  #   key            = "databases"
+  #   region         = "us-east-1"
+  #   dynamodb_table = "gmd-terraform-lock-dev"
+  # }
 }
 
 provider "aws" {

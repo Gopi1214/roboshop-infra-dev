@@ -1,7 +1,7 @@
 resource "aws_lb_target_group" "web" {
   name                 = "${local.name}-${var.tags.Component}"
   port                 = 80
-  protocol             = "HTTPS"
+  protocol             = "HTTP"
   vpc_id               = data.aws_ssm_parameter.vpc_id.value
   deregistration_delay = 60
 
@@ -16,6 +16,17 @@ resource "aws_lb_target_group" "web" {
   }
 }
 
+# Steps for provisioning autoscaling
+
+# 1. Create one instance
+# 2. Provision with ansible/shell
+# 3. Stop the instance
+# 4. Take AMI
+# 5. Delete the instance
+# 6. Create launch template with AMI
+# 7. Create autoscaling group
+# 8. Load Balancer rule
+# 9. Add autoscaling policy
 
 module "web" {
   source                 = "terraform-aws-modules/ec2-instance/aws"

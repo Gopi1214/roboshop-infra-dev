@@ -8,7 +8,7 @@ data "aws_ssm_parameter" "acm_certificate_arn" {
 
 ### private_subnet_ids
 
-data "aws_ssm_parameter" "private_subnet_ids" {
-  name = "/gmd/${var.project_name}/${var.environment}/private_subnet_ids"
+data "aws_ssm_parameter" "public_subnet_ids" {
+  name = "/gmd/${var.project_name}/${var.environment}/public_subnet_ids"
 }
 

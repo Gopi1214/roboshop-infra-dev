@@ -7,7 +7,7 @@ terraform {
   }
   # backend "s3" {
   #   bucket         = "gmd-terraform-dev"
-  #   key            = "app_alb"
+  #   key            = "shipping"
   #   region         = "us-east-1"
   #   dynamodb_table = "gmd-terraform-lock-dev"
   # }

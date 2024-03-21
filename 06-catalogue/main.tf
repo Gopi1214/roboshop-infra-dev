@@ -16,6 +16,18 @@ resource "aws_lb_target_group" "catalogue" {
   }
 }
 
+# Steps for provisioning autoscaling
+
+# 1. Create one instance
+# 2. Provision with ansible/shell
+# 3. Stop the instance
+# 4. Take AMI
+# 5. Delete the instance
+# 6. Create launch template with AMI
+# 7. Create autoscaling group
+# 8. Load Balancer rule
+# 9. Add autoscaling policy
+
 module "catalogue" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   ami                    = data.aws_ami.centos8.id
