@@ -29,16 +29,16 @@ pipeline {
                    terraform plan
                 """
             }
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                }
         }
         stage('apply') { 
             when {
                 expression {
                     params.option == "apply"
                 }
+            }
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
             }
             steps {
                 sh """
@@ -52,6 +52,10 @@ pipeline {
                 expression {
                     params.option == "destroy"
                 }
+            }
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
             }
             steps {
                 sh """
