@@ -10,7 +10,7 @@ pipeline {
         disableConcurrentBuilds()
     }
     parameters {
-        choice(name: 'CHOICE', choices: ['apply', 'destroy'], description: 'Pick any one based on need')
+        choice(name: 'option', choices: ['apply', 'destroy'], description: 'Pick any one based on need')
     }
     // Build
     stages {
@@ -29,17 +29,17 @@ pipeline {
                    terraform plan
                 """
             }
-        }
-        stage('apply') { 
-            when {
-                expression {
-                    params.CHOICE == "apply"
-                }
-            }
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
                 }
+        }
+        stage('apply') { 
+            when {
+                expression {
+                    params.option == "apply"
+                }
+            }
             steps {
                 sh """
                    cd 01-vpc
@@ -50,13 +50,9 @@ pipeline {
         stage('destroy') {
             when {
                 expression {
-                    params.CHOICE == "destroy"
+                    params.option == "destroy"
                 }
             }
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                }
             steps {
                 sh """
                    cd 01-vpc
