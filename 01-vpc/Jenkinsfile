@@ -1,0 +1,83 @@
+pipeline {
+    agent { 
+        node { 
+            label 'AGENT-1' 
+            } 
+        }
+    options {
+        ansiColor('xterm')
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+    }
+    parameters {
+        choice(name: 'CHOICE', choices: ['apply', 'destroy'], description: 'Pick any one based on need')
+    }
+    // Build
+    stages {
+        stage('init') { 
+            steps {
+                sh """
+                   cd 01-vpc
+                   terraform init -reconfigure
+                """
+            }
+        }
+        stage('plan') { 
+            steps {
+                sh """
+                   cd 01-vpc
+                   terraform plan
+                """
+            }
+        }
+        stage('apply') { 
+            when {
+                expression {
+                    params.CHOICE == "apply"
+                }
+            }
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                }
+            steps {
+                sh """
+                   cd 01-vpc
+                   terraform apply -auto-approve
+                """
+            }
+        }
+        stage('destroy') {
+            when {
+                expression {
+                    params.CHOICE == "destroy"
+                }
+            }
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                }
+            steps {
+                sh """
+                   cd 01-vpc
+                   terraform destroy -auto-approve
+                """
+            }
+        }
+    }
+    // Post Build
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+        failure { 
+            echo 'I will run when the job has failed!'
+        }
+        success { 
+            echo 'I will run when the job is success!'
+        }
+        aborted { 
+            echo 'I will run when the job is aborted manually!'
+        }
+    }
+}
