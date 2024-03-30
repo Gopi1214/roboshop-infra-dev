@@ -17,7 +17,7 @@ variable "project_name" {
 }
 
 variable "environment" {
-  default = "dev"
+  #default = "dev"
 }
 
 variable "zone_name" {
@@ -27,4 +27,8 @@ variable "zone_name" {
 
 variable "iam_instance_profile" {
   default = "ShellScriptRoleForRoboshop"
+}
+
+variable "app_version" {
+  
 }

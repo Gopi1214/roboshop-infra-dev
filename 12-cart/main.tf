@@ -1,5 +1,5 @@
-module "user" {
-    source = "../../terraform-roboshop-app"
+module "cart" {
+    source = "git::https://github.com/Gopi1214/terraform-roboshop-app.git?ref=main"
     vpc_id = data.aws_ssm_parameter.vpc_id.value
     component_sg_id = data.aws_ssm_parameter.cart_sg_id.value
     iam_instance_profile = var.iam_instance_profile
@@ -11,4 +11,5 @@ module "user" {
     tags = var.tags
     zone_name = var.zone_name
     rule_priority = 40
+    app_version          = var.app_version
 }
