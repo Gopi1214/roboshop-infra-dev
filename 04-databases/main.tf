@@ -134,7 +134,7 @@ resource "null_resource" "mysql" {
   connection {
     type     = "ssh"
     user     = "centos"
-    password = "${var.environment}Ops321"
+    password = "DevOps321"
     host     = module.mysql.private_ip
   }
 
@@ -184,7 +184,7 @@ resource "null_resource" "rabbitmq" {
   connection {
     type     = "ssh"
     user     = "centos"
-    password = "${var.environment}Ops321"
+    password = "DevOps321"
     host     = module.rabbitmq.private_ip
   }
 
