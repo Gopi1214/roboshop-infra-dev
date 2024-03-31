@@ -44,7 +44,7 @@ resource "null_resource" "mongodb" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "sudo chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh mongodb dev"
+      "sudo sh /tmp/bootstrap.sh mongodb ${var.environment}"
     ]
   }
   depends_on = [module.mongodb]
@@ -96,7 +96,7 @@ resource "null_resource" "redis" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh redis dev"
+      "sudo sh /tmp/bootstrap.sh redis ${var.environment}"
     ]
   }
 }
@@ -134,7 +134,7 @@ resource "null_resource" "mysql" {
   connection {
     type     = "ssh"
     user     = "centos"
-    password = "DevOps321"
+    password = "${var.environment}Ops321"
     host     = module.mysql.private_ip
   }
 
@@ -147,7 +147,7 @@ resource "null_resource" "mysql" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh mysql dev"
+      "sudo sh /tmp/bootstrap.sh mysql ${var.environment}"
     ]
   }
 }
@@ -184,7 +184,7 @@ resource "null_resource" "rabbitmq" {
   connection {
     type     = "ssh"
     user     = "centos"
-    password = "DevOps321"
+    password = "${var.environment}Ops321"
     host     = module.rabbitmq.private_ip
   }
 
@@ -197,7 +197,7 @@ resource "null_resource" "rabbitmq" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh rabbitmq dev"
+      "sudo sh /tmp/bootstrap.sh rabbitmq ${var.environment}"
     ]
   }
 }
@@ -229,7 +229,7 @@ module "records" {
 
   records = [
     {
-      name = "mongodb-dev"
+      name = "mongodb-${var.environment}"
       type = "A"
       ttl  = 1
       records = [
@@ -237,7 +237,7 @@ module "records" {
       ]
     },
     {
-      name = "redis-dev"
+      name = "redis-${var.environment}"
       type = "A"
       ttl  = 1
       records = [
@@ -245,7 +245,7 @@ module "records" {
       ]
     },
     {
-      name = "mysql-dev"
+      name = "mysql-${var.environment}"
       type = "A"
       ttl  = 1
       records = [
@@ -253,7 +253,7 @@ module "records" {
       ]
     },
     {
-      name = "rabbitmq-dev"
+      name = "rabbitmq-${var.environment}"
       type = "A"
       ttl  = 1
       records = [
